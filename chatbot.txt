@@ -1,0 +1,37 @@
+Design a simple chatbot application. Assume there’s an API you can use to get chatbot responses based on user input, called sendMessageToBot, that operates as such:
+
+sendMessageToBot = (message, bot_state) => (response, new_bot_state)
+The bot_state can be thought of as a blackbox object used by the chatbot application for representing its internal state.
+The bot_state parameter is initialized by the chatbot (you pass a null state on the user’s first interaction), and you simply need to make sure
+
+make sure the correct bot_state for the user is passed in on each request. Your application needs to receive messages from users interacting with the chat widget and
+return responses to them. Your application also needs to return a user’s message history (e.g. they closed their browser and then later returned to the chat widget).
+
+{   
+    message_text,
+    chat_id
+}
+
+Route('api/send_message/{chat_id}')
+def send_message(message):
+    bot_state = fetch_bot_state(chat_id)
+    response, new_state = sendMessageToBot(message, bot_state)
+    self.store_message(message)
+    self.store_bot_state(new_state)
+    return JSON.serialize(response)
+
+Route('api/message_history/{chat_id}')
+def get_message_history():
+    return JSON.serialize(self.get_message_history(chat_id))
+
+def fetch_bot_state(chat_id):
+    return db.get_bot_state(chat_id)'
+
+def store_bot_state(bot_state):
+    return db.store_bot_state(bot_state)
+
+def get_message_history(chat_id):
+    return db.get_message_history(chat_id)
+
+def store_message(message):
+    return db.store_message(message)
